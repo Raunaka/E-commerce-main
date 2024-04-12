@@ -17,19 +17,24 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let response = customFetch(url, {
-      method: "GET",
-    });
-    response.then((data) => {
-      let modifiedData = data.products.map((item) => {
-        item.edit = true;
-        return item;
-      });
-      window.localStorage.setItem("products", JSON.stringify(modifiedData));
-      let products = JSON.parse(window.localStorage.getItem("products"));
-      dispatch(addproducts(products));
-    });
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await customFetch(url, {
+          method: "GET",
+        });
+        const modifiedData = response.products.map((item) => {
+          item.edit = true;
+          return item;
+        });
+        window.localStorage.setItem("products", JSON.stringify(modifiedData));
+        dispatch(addproducts(modifiedData));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]); // Added dispatch as a dependency to avoid the exhaustive-deps warning
 
   return (
     <div className="App">

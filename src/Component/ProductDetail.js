@@ -32,6 +32,7 @@ function Carousel({ images }) {
 }
 
 // ProductDetails component
+// ProductDetails component
 export default function ProductDetail({ item }) {
   const dispatchCart = useDispatch();
   const dispatchTotal = useDispatch();
@@ -52,7 +53,7 @@ export default function ProductDetail({ item }) {
       {item.images ? (
         <Carousel images={item.images} />
       ) : (
-        <img src={item.thumbnail} alt="Thumbnail" id="detailAddedImage" />
+        <img src={item.thumbnail} alt="Product Thumbnail" id="detailAddedImage" />
       )}
 
       {/* Product details */}
